@@ -1,0 +1,21 @@
+1) In prepare_datasets directory, find prepare_physionet.py, change the path of variable:
+	"--output_dir","--select_ch", tmp, filename
+2) In prepare_datasets directory, in sleep_study, in data.py, change the path of variable:
+	age_path
+3) In prepare_datasets directory, in sleep_study, in info.py, change the path of variable:
+	path
+4) In prepare_datasets directory, in sleep_study, in data.py, change the number "0" in:
+	channels=ss.info.EEG_CH_NAMES[0] to the channel of data you want to train and test.
+5) Run prepare_physionet.py to prepare datasets of NCH data.
+6) In utils/util.py, change the variable: files_pairs.
+	In the given code, it combines the data of the first 4 files into 1 file (age 0-3),
+ 	combines the data of the last 4 files into 1 file (age 4-7).
+7) In config.json, change "name", "num_folds".
+	In the given code, num_folds = 2 because 2 files are used in 6).
+8) In Katana, run the code:
+	module load python/3.7
+	(Then change the path to your files use cd command, activate your python environment)
+	chmod +x batch_train.sh
+	./batch_train.sh 0 Attnsleep_nch/prepare_datasets/sleep_study/wavelet_03_47
+	(change the path in the above line)
+9) Results are saved in "saved" directory
